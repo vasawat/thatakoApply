@@ -1,16 +1,16 @@
 import React,{ useState, useEffect, useContext } from 'react'
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams , Link } from "react-router-dom";
 import axios from 'axios';
 import env from '../assets/enviroments'
 import { StudentContext } from "../contexts/StudentContext";
-import Swal from 'sweetalert2';
+import Button from '@mui/material/Button';
+
 
 
 
 
 export default function StudentDetail(params) {
 
-    const navigate = useNavigate();
     const { isMobile } = useContext(StudentContext);
     const { id } = useParams();
 
@@ -27,10 +27,14 @@ export default function StudentDetail(params) {
     useEffect(() => {
         window.scrollTo(0, 0);
         getDetail(id);
+        // eslint-disable-next-line
     }, [])
 
     return (
-        <>
+     <>
+            <div className='absolute top-10 left-10'>
+                <Link to={"/admin"}><Button variant="contained" size='large'>กลับ</Button></Link>
+             </div>
             <div className='w-full h-screen bg-gray-200 grid place-items-center'>
                 <div className='w-2/3'>
                     <div className='grid grid-cols-1 rounded-xl bg-white p-6 '>
