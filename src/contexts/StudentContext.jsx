@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import env from "../assets/enviroments";
+// import axios from "axios";
+// import env from "../assets/enviroments";
 
 export const StudentContext = createContext();
 
