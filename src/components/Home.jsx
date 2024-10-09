@@ -4,13 +4,14 @@ import TextField from '@mui/material/TextField';
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form'
 import axios from "axios";
+import env from "../assets/enviroments";
 
 export default function Home(params) {
 
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
-        axios.post("http://localhost:5000/user/login", data).then((res) => {
+        axios.post(env.apiUrl + "/user/login", data).then((res) => {
             if (res.status === 200) {
                 localStorage.setItem("token", res.data.accessToken);
                 navigate("/admin");
