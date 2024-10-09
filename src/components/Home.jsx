@@ -22,10 +22,10 @@ export default function Home(params) {
 
     return (
         <>
-        <div className="w-full h-screen bg-gray-400 grid place-items-center">
-            <div className="w-2/5 grid grid-cols-3 rounded-xl overflow-hidden">
+        <div className="w-full h-screen bg-[#F5F5F5] grid place-items-center ">
+            <div className="w-2/5 grid grid-cols-3 rounded-xl overflow-hidden border-[#424242] border-2 shadow-2xl">
 
-                <div className="col-span-1 bg-gray-200 p-6">
+                {/* <div className="col-span-1 bg-[#F5F5F5] p-6">
                     <img src="" alt="" />
                     <div className="text-xl">
                         <p>การเข้าใช้งานระบบ</p>
@@ -42,9 +42,9 @@ export default function Home(params) {
                             <p>• นางปิยะธิดา ประภาชัยมงคล 0894598602</p>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
-                <div className="col-span-2 bg-white p-6 grid place-items-center">
+                <div className="col-span-3 bg-white p-6 grid place-items-center ">
                     <img className="w-1/3 mt-2 mb-4" src={thatakoPNG} alt="" />
                     <p>ระบบรับสมัครนักเรียนออนไลน์</p>
                     <p>สำหรับโรงเรียนท่าตะโกพิทยาคม</p>
