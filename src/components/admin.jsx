@@ -25,7 +25,7 @@ export default function Admin(params) {
   const navigate = useNavigate();
   const { isMobile } = useContext(StudentContext);
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [showData, setShowData] = useState([]);
   const [studentName, setStudentName] = useState([]);
   const [grade, setGrade] = useState([]);
@@ -36,7 +36,7 @@ export default function Admin(params) {
 
   const getData = () => {
     axios.get(env.apiUrl + '/admin/getData').then((res) => {
-      setData(res.data);
+      // setData(res.data);
       setShowData(res.data);
       const stdName = res.data.map((item) => item.firstName);
       setStudentName(stdName);

@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Swal from 'sweetalert2'
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -38,8 +38,6 @@ const preface = ['เด็กชาย', 'เด็กหญิง', 'นาย
 const major = ['สายวิทยาศาสตร์และคณิตศาสตร์', 'สายศิลคำนวน'];
 
 export default function Apply(params) {
-
-    const navigate = useNavigate();
 
     const [file, setFile] = useState(null);
     const [imageURL, setImageURL] = useState(null);
