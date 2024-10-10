@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form'
 
+import { StudentContext } from "../contexts/StudentContext";
 import env from '../assets/enviroments'
 import axios from 'axios';
 import Button from '@mui/material/Button';
@@ -21,6 +22,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 
+
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -38,6 +40,8 @@ const preface = ['เด็กชาย', 'เด็กหญิง', 'นาย
 const major = ['สายวิทยาศาสตร์และคณิตศาสตร์', 'สายศิลคำนวน'];
 
 export default function Apply(params) {
+
+    const { isMobile } = useContext(StudentContext);
 
     const [file, setFile] = useState(null);
     const [imageURL, setImageURL] = useState(null);
@@ -107,14 +111,16 @@ export default function Apply(params) {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
-            <div className='absolute top-10 left-10'>
-                <Link to={"/"}><Button variant="contained" size='large'>กลับไปหน้าแรก</Button></Link>
-            </div>
+            
 
             
             <div className="w-full h-screen bg-blue-200 overflow-auto grid place-items-center py-10">
+
+                <div className={isMobile ? 'mb-5':'absolute top-10 left-10'}>
+                    <Link to={"/"}><Button variant="contained" size='large'>กลับไปหน้าแรก</Button></Link>
+                </div>
                 
-                <div className="w-2/3 py-6 px-10 rounded-xl bg-white">
+                <div className={isMobile ? "w-[90%] py-4 px-3 rounded-xl bg-white":"w-2/3 py-6 px-10 rounded-xl bg-white"}>
                 <p className='text-center text-2xl pb-5'>ลงทะเบียนนักเรียนออนไลน์ 2567</p>
                     <div className='grid grid-cols-2 gap-7'>
 
@@ -221,24 +227,25 @@ export default function Apply(params) {
                             e.target.value = e.target.value.replace(/[^0-9]/g, '');
                         }} fullWidth/>
 
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['DatePicker']}>
-                                <Controller
-                                    name="birthDate"
-                                    control={control}
-                                    defaultValue={null}
-                                    render={({ field: { onChange, value } }) => (
-                                    <DatePicker
-                                        label="วันเกิด"
-                                        value={value}
-                                        onChange={onChange}
-                                        fullWidth
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <Controller
+                                        name="birthDate"
+                                        control={control}
+                                        defaultValue={null}
+                                        render={({ field: { onChange, value } }) => (
+                                        <DatePicker
+                                            label="วันเกิด"
+                                            value={value}
+                                            onChange={onChange}
+                                            sx={{ width: '100%' , minWidth: 'unset' }}
+                                        />
+                                        )}
+                                        rules={{ required: true }}
                                     />
-                                    )}
-                                    rules={{ required: true }}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        
 
                         <p className='col-span-2 text-xl'>ข้อมูลผู้ปกครอง</p>
                         <TextField {...register("firstNameDad", { required: true })} id="outlined-basic" label="ชื่อบิดา" variant="outlined" fullWidth/>

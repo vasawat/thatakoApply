@@ -76,19 +76,22 @@ export default function Admin(params) {
 
   return (
     <>
-      <div className='absolute top-10 left-10'>
-        <Link to={"/"}><Button variant="contained" size='large'>กลับไปหน้าแรก</Button></Link>
-      </div>
 
-      <div className='w-full h-screen grid place-items-center bg-gray-400'>
-        <div className='w-2/3 h-4/6'>
+
+      <div className='w-full h-screen grid place-items-center bg-gray-400 overflow-auto'>
+
+        <div className={isMobile ? "my-5":"absolute top-10 left-10"}>
+          <Link to={"/"}><Button variant="contained" size='large'>กลับไปหน้าแรก</Button></Link>
+        </div>
+
+        <div className={isMobile ? "w-full":"w-2/3 h-[40rem]"}>
         
             <div className={isMobile ? ('w-full bg-white p-4 text-sm'):('w-full flex bg-white p-4 align-middle justify-between')}>
-                <div className={isMobile ? ('flex items-center gap-2 mb-2'):('flex items-center gap-2')} >
+                <div className={isMobile ? ('grid grid-cols-2 gap-2 mb-2'):('flex items-center gap-2')} >
                     <Autocomplete
                         disablePortal
                         options={studentName}
-                        sx={{ width: 200 }}
+                        sx={isMobile ? { width: '100%' } : { width: 200 }}
                         onChange={(event, newValue) => {
                             setSearchName(newValue);
                         }}
@@ -97,7 +100,7 @@ export default function Admin(params) {
                     <Autocomplete
                         disablePortal
                         options={grade}
-                        sx={{ width: 200 }}
+                        sx={isMobile ? { width: '100%' } : { width: 200 }}
                         onChange={(event, newValue) => {
                             setSearchGrade(newValue);
                         }}
@@ -118,57 +121,92 @@ export default function Admin(params) {
                             />
                         </LocalizationProvider>
                         
-                        <p className='flex '>จำนวนข้อมูล: {showData.length}</p>
+                        {!isMobile && <p className='flex '>จำนวนข้อมูล: {showData.length}</p>}
+                        
                 </div>
 
                 <div className='flex items-center gap-2'>
                     <Button variant="contained" onClick={searchData}>ค้นหา</Button>
                     <Button variant="contained" onClick={() => getData()}>รีเซต</Button>
+                    {isMobile && <p className='flex '>จำนวนข้อมูล: {showData.length}</p>}
                 </div>
             </div>
 
           <Paper sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden'  }}>
             <TableContainer sx={{ flexGrow: 1 }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <TableRow>
-                      <TableCell></TableCell>
-                      <TableCell>ชื่อ - นามสกุล</TableCell>
-                      <TableCell>เบอร์โทรศัพท์</TableCell>
-                      <TableCell>ชั้นปี</TableCell>
-                      <TableCell>สาขา</TableCell>
-                      <TableCell>วันเวลาที่สมัคร</TableCell>
-                      <TableCell align="center"></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {showData.map((eachData) => {
-                      return (
-                        <TableRow key={eachData._id}>
-                            <TableCell><img src={eachData.image} className='w-10 h-10' alt=""/></TableCell>
-                            <TableCell>{eachData.preface} {eachData.firstName} {eachData.lastName}</TableCell>
-                            <TableCell>{eachData.phone}</TableCell>
-                            <TableCell>{eachData.grade}</TableCell>
-                            <TableCell>{eachData.major}</TableCell>
-                            <TableCell>  
-                              {new Date(eachData.createdAt).toLocaleString('th-TH', {
-                                year: 'numeric',
-                                month: 'numeric',
-                                day: 'numeric',
-                                hour: 'numeric',
-                                minute: 'numeric',
-                                second: 'numeric',
-                                hour12: false
-                              })}
-                            </TableCell>
-                            <TableCell align="center" sx={{ cursor: "pointer" }}>
-                              <Button sx={{ mr: 1 }} variant="contained" color="primary" onClick={() => { navigate('/student/' + eachData._id) }}>ดูข้อมูล</Button>
-                            </TableCell>
-                        </TableRow>
-                      )
-                    })}
-                </TableBody>
-              </Table>
+              {isMobile ? (
+                <Table stickyHeader aria-label="sticky table">
+                  <TableBody>
+                    {showData.map((eachData) => {
+                        return (
+                          <TableRow key={eachData._id}>
+                              <TableCell>
+                                <img src={eachData.image} className='w-10 h-10' alt=""/>
+                                ชื่อ: {eachData.preface} {eachData.firstName} {eachData.lastName} <br />
+                                เบอร์โทรศัพท์: {eachData.phone} <br />
+                                ระดับชั้น: {eachData.grade} <br />
+                                แผนการเรียน: {eachData.major} <br />
+                                วันที่สมัคร: {new Date(eachData.createdAt).toLocaleString('th-TH', {
+                                  year: 'numeric',
+                                  month: 'numeric',
+                                  day: 'numeric',
+                                  hour: 'numeric',
+                                  minute: 'numeric',
+                                  second: 'numeric',
+                                  hour12: false
+                                })}
+                              </TableCell>
+                              <TableCell align="center" sx={{ p: 2 }}>
+                                <Button sx={{ fontSize: 12, p: 1 }} variant="contained" color="primary" onClick={() => { navigate('/student/' + eachData._id) }}>ดูข้อมูล</Button>
+                              </TableCell>
+                          </TableRow>
+                        )
+                      })}
+                  </TableBody>
+                </Table>
+              ) : (
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                        <TableCell></TableCell>
+                        <TableCell>ชื่อ - นามสกุล</TableCell>
+                        <TableCell>เบอร์โทรศัพท์</TableCell>
+                        <TableCell>ชั้นปี</TableCell>
+                        <TableCell>สาขา</TableCell>
+                        <TableCell>วันเวลาที่สมัคร</TableCell>
+                        <TableCell align="center"></TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {showData.map((eachData) => {
+                        return (
+                          <TableRow key={eachData._id}>
+                              <TableCell><img src={eachData.image} className='w-10 h-10' alt=""/></TableCell>
+                              <TableCell>{eachData.preface} {eachData.firstName} {eachData.lastName}</TableCell>
+                              <TableCell>{eachData.phone}</TableCell>
+                              <TableCell>{eachData.grade}</TableCell>
+                              <TableCell>{eachData.major}</TableCell>
+                              <TableCell>  
+                                {new Date(eachData.createdAt).toLocaleString('th-TH', {
+                                  year: 'numeric',
+                                  month: 'numeric',
+                                  day: 'numeric',
+                                  hour: 'numeric',
+                                  minute: 'numeric',
+                                  second: 'numeric',
+                                  hour12: false
+                                })}
+                              </TableCell>
+                              <TableCell align="center" sx={{ cursor: "pointer" }}>
+                                <Button sx={{ mr: 1 }} variant="contained" color="primary" onClick={() => { navigate('/student/' + eachData._id) }}>ดูข้อมูล</Button>
+                              </TableCell>
+                          </TableRow>
+                        )
+                      })}
+                  </TableBody>
+                </Table>
+              )}
+              
             </TableContainer>
           </Paper>
         </div>

@@ -32,15 +32,16 @@ export default function StudentDetail(params) {
 
     return (
      <>
-            <div className='absolute top-10 left-10'>
-                <Link to={"/admin"}><Button variant="contained" size='large'>กลับ</Button></Link>
-             </div>
-            <div className='w-full h-screen bg-gray-200 grid place-items-center'>
-                <div className='w-2/3'>
+
+            <div className='w-full h-screen bg-gray-200 grid place-items-center overflow-auto'>
+                <div className={isMobile ? 'my-5' : 'absolute top-10 left-10'}>
+                    <Link to={"/admin"}><Button variant="contained" size='large'>กลับ</Button></Link>
+                </div>
+                <div className={isMobile ? 'w-full':' '}>
                     <div className='grid grid-cols-1 rounded-xl bg-white p-6 '>
                         <p className='col-span-1 text-3xl font-bold text-center'>ข้อมูลผู้สมัคร</p>
-                        <div className='col-span-1'>
-                            <img style={isMobile ? { width: '100%' } : { width: '50%' }} src={data.image} alt="" />
+                        <div className='col-span-1 grid place-items-center my-5'>
+                            <img style={isMobile ? { width: '100%' } : { width: '20rem' }} src={data.image} alt="" />
                         </div>
 
                         <p>ข้อมูลส่วนตัว</p>
