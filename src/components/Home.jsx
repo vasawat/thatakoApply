@@ -146,6 +146,7 @@ export default function Home(params) {
                   id="outlined-basic"
                   label="Password"
                   variant="outlined"
+                  type="password"
                   fullWidth
                 />
               </div>

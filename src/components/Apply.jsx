@@ -13,6 +13,7 @@ const { Option } = Select;
 const gradeOptions = ["ม.1", "ม.2", "ม.3", "ม.4", "ม.5", "ม.6"];
 const prefaceOptions = ["เด็กชาย", "เด็กหญิง", "นาย", "นางสาว"];
 const majorOptions = ["สายวิทยาศาสตร์และคณิตศาสตร์", "สายศิลคำนวน"];
+const bloodTypeOptions = ["A", "B", "O", "AB"];
 
 export default function Apply() {
   const { isMobile } = useContext(StudentContext);
@@ -112,7 +113,6 @@ export default function Apply() {
                 ))}
               </Select>
             </Form.Item>
-
             <Form.Item
               name="major"
               label="แผนการเรียน"
@@ -126,7 +126,6 @@ export default function Apply() {
                 ))}
               </Select>
             </Form.Item>
-
             {/* ข้อมูลนักเรียน */}
             <p className="text-2xl font-bold py-5 ">ข้อมูลนักเรียน</p>
             <Form.Item label="อัปโหลดรูปนักเรียน">
@@ -147,7 +146,6 @@ export default function Apply() {
                 )}
               </Upload>
             </Form.Item>
-
             <Form.Item
               name="thaiId"
               label="เลขประจำตัวประชาชน"
@@ -158,7 +156,6 @@ export default function Apply() {
             >
               <Input maxLength={13} inputMode="numeric" />
             </Form.Item>
-
             <Form.Item
               name="preface"
               label="คำนำหน้า"
@@ -172,7 +169,6 @@ export default function Apply() {
                 ))}
               </Select>
             </Form.Item>
-
             <Form.Item
               name="firstName"
               label="ชื่อ"
@@ -180,7 +176,6 @@ export default function Apply() {
             >
               <Input />
             </Form.Item>
-
             <Form.Item
               name="lastName"
               label="นามสกุล"
@@ -188,7 +183,6 @@ export default function Apply() {
             >
               <Input />
             </Form.Item>
-
             <Form.Item
               name="phone"
               label="เบอร์โทรศัพท์"
@@ -199,7 +193,16 @@ export default function Apply() {
             >
               <Input maxLength={10} />
             </Form.Item>
-
+            <Form.Item
+              name={"email"}
+              label="อีเมล"
+              rules={[
+                { required: true, message: "กรุณากรอกอีเมล" },
+                { type: "email", message: "กรุณากรอกอีเมลให้ถูกต้อง" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
             <Form.Item
               name="birthDate"
               label="วันเกิด"
@@ -209,13 +212,19 @@ export default function Apply() {
             </Form.Item>
 
             <Form.Item
+              name={"ethnicity"}
+              label="เชื้อชาติ"
+              rules={[{ required: true, message: "กรุณากรอกเชื้อชาติ" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
               name={"nationality"}
               label="สัญชาติ"
               rules={[{ required: true, message: "กรุณากรอกสัญชาติ" }]}
             >
               <Input />
             </Form.Item>
-
             <Form.Item
               name={"religion"}
               label="ศาสนา"
@@ -223,7 +232,19 @@ export default function Apply() {
             >
               <Input />
             </Form.Item>
-
+            <Form.Item
+              name={"bloodType"}
+              label="หมู่โลหิต"
+              rules={[{ required: true, message: "กรุณากรอกหมู่โลหิต" }]}
+            >
+              <Select placeholder="เลือกหมู่โลหิต">
+                {bloodTypeOptions.map((bloodType) => (
+                  <Option key={bloodType} value={bloodType}>
+                    {bloodType}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
             <Form.Item
               name="address"
               label="ที่อยู่"
@@ -231,7 +252,6 @@ export default function Apply() {
             >
               <Input.TextArea />
             </Form.Item>
-
             <Form.Item
               name="subDistrict"
               label="ตำบล"
@@ -239,7 +259,6 @@ export default function Apply() {
             >
               <Input />
             </Form.Item>
-
             <Form.Item
               name="district"
               label="อำเภอ"
@@ -247,7 +266,6 @@ export default function Apply() {
             >
               <Input />
             </Form.Item>
-
             <Form.Item
               name="province"
               label="จังหวัด"
@@ -255,7 +273,6 @@ export default function Apply() {
             >
               <Input />
             </Form.Item>
-
             <Form.Item
               name="postCode"
               label="รหัสไปรษณีย์"
@@ -266,7 +283,30 @@ export default function Apply() {
             >
               <Input maxLength={5} />
             </Form.Item>
-
+            <p className="text-2xl font-bold py-5 ">
+              ชื่อโรงเรียนที่สำเร็จการศึกษาหรือกำลังศีกษา
+            </p>
+            <Form.Item
+              name="prevSchoolName"
+              label="ชื่อโรงเรียน"
+              rules={[{ required: true, message: "กรุณากรอกชื่อโรงเรียน" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="prevSchoolProvince"
+              label="จังหวัด"
+              rules={[{ required: true, message: "กรุณากรอกจังหวัด" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="prevSchoolScore"
+              label="เกรดเฉลี่ย"
+              rules={[{ required: true, message: "กรุณากรอกเกรดเฉลี่ย" }]}
+            >
+              <Input />
+            </Form.Item>
             {/* ข้อมูลผู้ปกครอง */}
             <p className="text-2xl font-bold pt-5 ">ข้อมูลผู้ปกครอง</p>
             <p className="text-md font-bold pt-2 pb-5 ">
@@ -280,7 +320,6 @@ export default function Apply() {
             >
               <Input />
             </Form.Item>
-
             <Form.Item
               name="lastNameDad"
               label="นามสกุลบิดา"
@@ -288,7 +327,13 @@ export default function Apply() {
             >
               <Input />
             </Form.Item>
-
+            <Form.Item
+              name="jobDad"
+              label="อาชีพบิดา"
+              rules={[{ required: true, message: "กรุณากรอกอาชีพบิดา" }]}
+            >
+              <Input />
+            </Form.Item>
             <Form.Item
               name="phoneDad"
               label="เบอร์โทรศัพท์บิดา"
@@ -299,7 +344,6 @@ export default function Apply() {
             >
               <Input maxLength={10} />
             </Form.Item>
-
             <Form.Item
               name="firstNameMom"
               label="ชื่อมารดา"
@@ -307,7 +351,6 @@ export default function Apply() {
             >
               <Input />
             </Form.Item>
-
             <Form.Item
               name="lastNameMom"
               label="นามสกุลมารดา"
@@ -315,7 +358,13 @@ export default function Apply() {
             >
               <Input />
             </Form.Item>
-
+            <Form.Item
+              name="jobMom"
+              label="อาชีพมารดา"
+              rules={[{ required: true, message: "กรุณากรอกอาชีพมารดา" }]}
+            >
+              <Input />
+            </Form.Item>
             <Form.Item
               name="phoneMom"
               label="เบอร์โทรศัพท์มารดา"
@@ -326,7 +375,51 @@ export default function Apply() {
             >
               <Input maxLength={10} />
             </Form.Item>
-
+            <Form.Item
+              name="familyStatus"
+              label="สถานภาพของบิดามารดา"
+              rules={[{ required: true, message: "กรุณากรอกสถานภาพ" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="firstNameParent"
+              label="ชื่อผู้ปกครอง"
+              rules={[{ required: true, message: "กรุณากรอกชื่อผู้ปกครอง" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="lastNameParent"
+              label="นามสกุลผู้ปกครอง"
+              rules={[{ required: true, message: "กรุณากรอกนามสกุลผู้ปกครอง" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="jobParent"
+              label="อาชีพผู้ปกครอง"
+              rules={[{ required: true, message: "กรุณากรอกอาชีพผู้ปกครอง" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="phoneParent"
+              label="เบอร์โทรศัพท์ผู้ปกครอง"
+              rules={[
+                { required: true, message: "กรุณากรอกเบอร์โทรศัพท์ผู้ปกครอง" },
+                { pattern: /^[0-9]*$/, message: "กรุณากรอกเฉพาะตัวเลข" },
+              ]}
+            >
+              <Input maxLength={10} />
+            </Form.Item>
+            <Form.Item
+              name="parentRelation"
+              label="ความเกี่ยวข้องของผู้ปกครองกับนักเรียน"
+              rules={[{ required: true, message: "กรุณากรอกความเกี่ยวข้อง" }]}
+            >
+              <Input />
+            </Form.Item>
             <Form.Item>
               <Button
                 className="mt-5"

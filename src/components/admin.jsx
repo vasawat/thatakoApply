@@ -63,16 +63,14 @@ export default function Admin() {
 
   return (
     <div className="w-full h-screen grid place-items-center bg-gradient-to-br from-[#78c9f4] via-[#1b1b4f] to-[#131339] overflow-auto">
-      <div className={isMobile ? "my-5" : "absolute top-10 left-10"}>
-        <Link to={"/"} onClick={() => localStorage.removeItem("token")}>
-          <Button type="primary" size="large">
-            ออกจากระบบ
-          </Button>
-        </Link>
-      </div>
       {!isMobile && (
-        <div className="w-[80%] my-10 bg-white rounded-xl">
-          <div>
+        <div className="w-[80%] my-10  ">
+          <Link to={"/"} onClick={() => localStorage.removeItem("token")}>
+            <Button type="primary" size="large">
+              ออกจากระบบ
+            </Button>
+          </Link>
+          <div className="bg-white rounded-xl">
             <div className="w-full flex justify-between bg-white p-4">
               <div className="flex gap-4 items-center">
                 <Select
@@ -130,7 +128,7 @@ export default function Admin() {
               style={{ width: "100%" }}
             >
               <Column
-                title=""
+                title="รูป"
                 dataIndex="image"
                 render={(image) => <Image src={image} width={40} height={40} />}
               />
@@ -176,6 +174,14 @@ export default function Admin() {
       )}
       {isMobile && (
         <div className="w-full">
+          <div className="w-full flex justify-center py-4">
+            <Link to={"/"} onClick={() => localStorage.removeItem("token")}>
+              <Button type="primary" size="large">
+                ออกจากระบบ
+              </Button>
+            </Link>
+          </div>
+
           <div className="w-full flex flex-col gap-4 bg-white p-4">
             <Select
               showSearch
@@ -241,7 +247,15 @@ export default function Admin() {
               style={{ borderRadius: "0" }}
               render={(record) => (
                 <div>
-                  <img className="w-10" src={record.image} alt="" />
+                  <div className="h-10 mb-2 flex justify-between">
+                    <img className="w-10 h-10" src={record.image} alt="" />
+                    <Button
+                      type="primary"
+                      onClick={() => navigate(`/student/${record._id}`)}
+                    >
+                      ดูข้อมูล
+                    </Button>
+                  </div>
                   <p>
                     ชื่อ: {record.preface} {record.firstName} {record.lastName}
                   </p>
@@ -261,18 +275,6 @@ export default function Admin() {
                     })}
                   </p>
                 </div>
-              )}
-            />
-            <Column
-              title=""
-              key="action"
-              render={(record) => (
-                <Button
-                  type="primary"
-                  onClick={() => navigate(`/student/${record._id}`)}
-                >
-                  ดูข้อมูล
-                </Button>
               )}
             />
           </Table>

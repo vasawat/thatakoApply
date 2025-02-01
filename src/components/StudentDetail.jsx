@@ -39,19 +39,15 @@ export default function StudentDetail(params) {
           </Link>
         </div>
         <div className={isMobile ? "w-full" : " "}>
-          <div className="grid grid-cols-1 rounded-xl bg-white p-6 ">
-            <p className="col-span-1 text-3xl font-bold text-center">
-              ข้อมูลผู้สมัคร
-            </p>
+          <div className="grid grid-cols-1 gap-1 rounded-xl bg-white p-6 text-sm">
             <div className="col-span-1 grid place-items-center my-5">
               <img
-                style={isMobile ? { width: "100%" } : { width: "20rem" }}
+                style={isMobile ? { width: "50%" } : { width: "20rem" }}
                 src={data.image}
                 alt=""
               />
             </div>
-
-            <p>ข้อมูลส่วนตัว</p>
+            <p className="col-span-1 text-xl font-bold mb-2">ข้อมูลส่วนตัว</p>
             <p>
               ชื่อ - นามสกุล : {data.preface} {data.firstName} {data.lastName}
             </p>
@@ -59,25 +55,43 @@ export default function StudentDetail(params) {
             <p>ระดับชั้น : {data.grade}</p>
             <p>เลขประจําตัวประชาชน : {data.thaiId}</p>
             <p>เบอร์โทรศัพท์ : {data.phone}</p>
-            <p>วันเกิด : {data.birthDate}</p>
             <p>อีเมล : {data.email}</p>
+            <p>วันเกิด : {data.birthDate}</p>
             <p>สัญชาติ : {data.nationality}</p>
+            <p>เชื้อชาติ : {data.ethnicity}</p>
             <p>ศาสนา : {data.religion}</p>
+            <p>หมู่โลหิต : {data.bloodType}</p>
             <p>
               ที่อยู่ : {data.address} {data.subDistrict} {data.district}{" "}
               {data.province} {data.postCode}
             </p>
-
             <hr className="col-span-1 my-4 " />
-            <p>ข้อมูลผู้ปกครอง</p>
-            <p>
-              ชื่อ - นามสกุล : {data.firstNameDad} {data.lastNameDad}
+            <p className="col-span-1 text-xl font-bold mb-2">
+              ชื่อโรงเรียนที่สำเร็จการศึกษาหรือกำลังศีกษา
             </p>
-            <p>เบอร์โทรศัพท์ : {data.phoneDad}</p>
+            <p>ชื่อโรงเรียน : {data.prevSchoolName}</p>
+            <p>จังหวัด : {data.prevSchoolProvince}</p>
+            <p>เกรดเฉลี่ย : {data.prevSchoolScore}</p>
+            <hr className="col-span-1 my-4 " />
+            <p className="col-span-1 text-xl font-bold mb-2">ข้อมูลผู้ปกครอง</p>
             <p>
-              ชื่อ - นามสกุล : {data.firstNameMom} {data.lastNameMom}
+              ชื่อ - สกุล บิดา : {data.firstNameDad} {data.lastNameDad}
             </p>
-            <p>เบอร์โทรศัพท์ : {data.phoneMom}</p>
+            <p>อาชีพบิดา : {data.jobDad}</p>
+            <p>เบอร์โทรศัพท์บิดา : {data.phoneDad}</p>
+            <p>
+              ชื่อ - สกุล มารดา : {data.firstNameMom} {data.lastNameMom}
+            </p>
+            <p>อาชีพมารดา : {data.jobMom}</p>
+            <p>เบอร์โทรศัพท์มารดา : {data.phoneMom}</p>
+            <p>สถานภาพของบิดามารดา : {data.familyStatus}</p>
+            <p>
+              ชื่อ - สกุล ผู้ปกครอง : {data.firstNameParent}{" "}
+              {data.lastNameParent}
+            </p>
+            <p>อาชีพผู้ปกครอง : {data.jobParent}</p>
+            <p>เบอร์โทรศัพท์ผู้ปกครอง : {data.phoneParent}</p>
+            <p>ความเกี่ยวข้องของผู้ปกครองกับนักเรียน : {data.parentRelation}</p>
           </div>
         </div>
       </div>
